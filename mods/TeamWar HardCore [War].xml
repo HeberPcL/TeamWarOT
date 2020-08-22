@@ -1,0 +1,1332 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<mod name="TeamWarOT HardCore Mod - TeamWarOT.com" version="0.3" author="HeberPcL" contact="heberpcl@gmail.com" enabled="yes">
+	<config name="TeamWar-config"><![CDATA[
+		-- [[   	  ## Config TeamWarOT HardCore ##		]] --
+		configTWH = {
+			maxTopRanking = 12,
+			diffFragsToEqui = 15,
+			antiMC = {
+				enable = true, -- enable or disable
+				max = 5, -- max chars with the same ip
+				allowedIP = {""},
+				timeForKick = 1500,
+				MsgKick = "You have been kicked because you are using Multi-Client.",
+				group_id = 3  -- only kick player with group id 1 (normal players)
+			},
+
+			-- Logout Protection Time
+			logoutProtectionTimer = {
+				enable = true,
+				storage = 55552,
+				timer = 20 * 1000
+			},
+			
+			defaultCharStatus = true, -- true/false for enable accounts  (1/1 - 2/2 - 3/3 - 4/4)
+			defaultCharAccoutID = {10,20,30,40}, -- Sorcerer/Druid/Paladin/Knight
+			
+			-- OutFit Type / Color
+			TEAMS_SET = { 
+				{lookType = 128, lookHead = 0, lookAddons = 3, lookLegs = 76, lookBody = 94, lookFeet = 0}, -- Team I OutFit
+				{lookType = 128, lookHead = 0, lookAddons = 3, lookLegs = 76, lookBody = 81, lookFeet = 0}, -- Team II Outfit
+				{lookType = 128, lookHead = 0, lookAddons = 3, lookLegs = 0, lookBody = 0, lookFeet = 0} -- NoTeam Outfit
+			},
+
+			-- Map Type  (1 = Team vs Team (Normal)  2 = Quest Map (No-PvP?)  3 = Capture The Flag (Normal + Capture)  4 = Deathmatch (Player vs All))
+			mapStats = {
+				[1] = {
+					author = "Staff",	name = "Thais",	mapType = {1, "Team vs Team"},		templeIDs = {1, 2},
+					templePositions = {		[1] = { x = 1452,	y = 1898, z = 6},	[2] = { x = 1553,	y = 1857, z = 7}		}
+				},
+				[2] = {
+					author = "Staff",	name = "Carlin", mapType = {1, "Team vs Team"},		templeIDs = {4, 5},
+					templePositions = {		[1] = { x = 1816,	y = 1872, z = 7},	[2] = { x = 1886,	y = 1940, z = 6}		}
+				},
+				[3] = {
+					author = "Staff",	name = "Venore", mapType = {1, "Team vs Team"},		templeIDs = {7, 8},
+					templePositions = {		[1] = { x = 2183,	y = 1921, z = 7},	[2] = { x = 2281,	y = 1899, z = 7}		}
+				},
+				[4] = {
+					author = "Staff",	name = "Edron",	mapType = {1, "Team vs Team"},		templeIDs = {10, 11},
+					templePositions = {		[1] = { x = 2590,	y = 1907, z = 6},	[2] = { x = 2709,	y = 1924, z = 7}		}
+			    },
+				[5] = {
+					author = "Staff",	name = "Fibula", mapType = {1, "Team vs Team"},		templeIDs = {16, 17},
+					templePositions = {		[1] = { x = 1486,	y = 2123, z = 7},	[2] = { x = 1522,	y = 2182, z = 7}		}
+				}
+			},
+			
+			deathBroadcast = {
+				killStorageValue = 99990,
+				lastKillerStorage = 50000,
+				maxPlayerGainFrag = 5,
+				MaxLevel = 	{ use = true,	MAX = 400 },
+				FragCount = { use = true 	},
+				AnimeText = { use = true 	},
+				GainMoney = { use = true, coinID = 2148 },
+				MultiIp = 	{ use = false 	},
+				experienceByKillingPlayers = {	use = true,	levelAmount = 0.6, color = 240 }, -- level gain for last hit killer
+				killMessage = {	use = true,	text = "[War Stats]  Frags Online: |KILLERKILLS|  Frags All: |KILLERKILLSALL|  Last Killer: |TARGETNAME|!", messageClass = MESSAGE_STATUS_CONSOLE_BLUE },
+				killerAnimation = {	use = true,	text = "Frag!",	 color = 240 }, -- Only 9 letters! No "commands" here.
+				targetAnimation = {	use = true, text = "Owned!", color = 151 } -- Only 9 letters! No "commands" here.
+			},
+
+			mapType = {
+				[1] = {
+					idType = 1,
+					nameType = "Team vs Team",
+					descricao = "           { Team vs Team } \n\n O objetivo é matar \n jogadores de outros times."
+				},
+				[4] = {
+					idType = 4,
+					nameType = "Deathmatch",
+					descricao = "           { Deathmatch } \n\n O objetivo é matar \n o maior numero de jogadores \n      (TODOS SÃO INIMIGO!)."
+				},
+			},
+			
+			mapChange = {
+				timer = 20 * 60,
+				timerStorage = 13001,
+				mapIdStorage = 13002,
+				mapTypeStorage = 13005,
+				accessIgnore = 3
+			},
+			
+			STORAGE = {
+				PLAYER = {
+					TEAM_INFO = 40000,
+					FRAGS_Online = 5000,
+					OUTFIT_Status = 4999,
+				},
+				GLOBAL = {
+					FRAGS = {30001, 30002},
+					TEAMS = {40001, 40002, 40003},
+					TEAMS_COUNT = {40011, 40012, 40013}
+				}
+			},
+			-- Protect Area / Not Teleport in Change Map
+			protectArea = {
+				{fromx=102, fromy=615, fromz=8, tox=146, toy=638, toz=8},
+			},
+			startPlayer = {
+				LevelFree = 150,
+				LevelPremium = 180,
+				STATS = {
+					-- Free Account 1-4
+					{	healthMax = 895,  manaMax = 4045,	cap = 1890, 	healthExt = 200,	manaExt = 500,	capExt = 250 },
+					{	healthMax = 895,  manaMax = 4045,	cap = 1890,		healthExt = 200,	manaExt = 500,	capExt = 250 },
+					{	healthMax = 1605, manaMax = 2165,	cap = 3310,		healthExt = 350,	manaExt = 350,	capExt = 250 },
+					{	healthMax = 2315, manaMax = 745,	cap = 4020,		healthExt = 500,	manaExt = 200,	capExt = 250 },
+					-- Premium Account  and  Promotion
+					{ 	healthMax = 1045, manaMax = 4795, 	cap = 1890,		healthExt = 200,	manaExt = 500,	capExt = 250 },
+					{ 	healthMax = 1045, manaMax = 4795, 	cap = 1890,		healthExt = 200,	manaExt = 500,	capExt = 250 },
+					{ 	healthMax = 1905, manaMax = 2615,	cap = 3310,		healthExt = 350,	manaExt = 350,	capExt = 250 },
+					{ 	healthMax = 2765, manaMax = 895,	cap = 4020,		healthExt = 500,	manaExt = 200,	capExt = 250 },
+				},
+			},
+			mensagens = {
+				[0] = "Fique por dentro de tudo que acontece no servidor e participe do nosso Forum. Visite: http://TeamWarOT.com",
+				[1] = "A Equipe não se responsabiliza por perda de Items/Roubos/Accounts Hackeds. Mantenha sua account segura, nunca use Account = Senha!",
+				[2] = "Comandos disponiveis no Servidor: !frags, !top, !rank, !online, !map, !maps, !nextMap.",
+				[3] = "Crie Agora sua Account! Visite: http://TeamWarOT.com/",
+				[4] = "Visite nosso TeamSpeak 3, otimo bate-papo de voz com toda Equipe e Players! Cliente antigo 3.1.8 IP: TS.TeamSpeakClub.com:9987  Download: https://mega.nz/#!uMgzBIzY!fd1JoRq0tx41gfP1-d2f718XI19Szx_SJa8xf_3M4is "
+			}
+		}
+	]]></config>
+	
+	<lib name="TeamWar-lib"><![CDATA[
+		domodlib('TeamWar-config')
+		-- TeamWar HardCore - Functions List
+		map = {
+			get = function()
+				return getStorage(configTWH.mapChange.mapIdStorage)
+			end,
+			removeIssue = function()
+				if map.get() < 1 or map.get() > #configTWH.mapStats then
+					-- print("map.removeIssue: issue has been removed :: map was ".. map.get())
+					return doSetStorage(configTWH.mapChange.mapIdStorage, 1)
+				end
+				return FALSE
+			end,
+			getIdByName = function(mapName)
+				for i = 1, #configTWH.mapStats do
+					if (configTWH.mapStats[i].name == mapName) then
+						returnID = i
+					end
+				end
+				return returnID or 0
+			end,
+			set = function(id)
+				local nextMapID = id or ((map.get() % #configTWH.mapStats) + 1)
+				map.removeIssue()
+				return doSetStorage(configTWH.mapChange.mapIdStorage, nextMapID)
+			end
+		}
+		mapInfo = {
+			mapId = function()
+				return getStorage(configTWH.mapChange.mapIdStorage)
+			end,
+			mapIdNext = function()
+				return ((map.get() % #configTWH.mapStats) + 1)
+			end,
+			mapName = function()
+				return configTWH.mapStats[map.get()].name
+			end,
+			mapNameNext = function()
+				return configTWH.mapStats[((map.get() % #configTWH.mapStats) + 1)].name
+			end
+		}
+		mapTypeManager = {
+			get = function()
+				return getStorage(configTWH.mapChange.mapTypeStorage)
+			end,
+			set = function(id)
+				return doSetStorage(configTWH.mapChange.mapTypeStorage, id)
+			end,
+		}
+		playerTeam = {
+			get = function (cid)
+				return ((getCreatureStorage(cid, configTWH.STORAGE.PLAYER.TEAM_INFO) == configTWH.STORAGE.GLOBAL.TEAMS[1]) and 1) or 2
+			end,
+			set = function (cid, id)
+				return doPlayerSetStorageValue(cid, configTWH.STORAGE.PLAYER.TEAM_INFO, id)
+			end
+		}
+		fragsTeam = {
+			get = function (teamId)
+				return getStorage(configTWH.STORAGE.GLOBAL.FRAGS[teamId])
+			end,
+			add = function (teamId, count)
+				return doSetStorage(configTWH.STORAGE.GLOBAL.FRAGS[teamId], fragsTeam.get(teamId) + count)
+			end,
+			start = function (teamId)
+				return doSetStorage(configTWH.STORAGE.GLOBAL.FRAGS[teamId], 0)
+			end,
+			rem = function (teamId, count)
+				return fragsTeam.add(teamId, -count)
+			end
+		}
+		teamCount = {
+			get = function (teamId)
+				return getStorage(configTWH.STORAGE.GLOBAL.TEAMS_COUNT[teamId])
+			end,
+			add = function (teamId, count)
+				return doSetStorage(configTWH.STORAGE.GLOBAL.TEAMS_COUNT[teamId], teamCount.get(teamId) + count)
+			end,
+			start = function (teamId)
+				return doSetStorage(configTWH.STORAGE.GLOBAL.TEAMS_COUNT[teamId], 0)
+			end,
+			rem = function (teamId, count)
+				return teamCount.add(teamId, -count)
+			end,
+			change = function (cid, team, teamGo)
+				-- print("["..getCreatureName(cid).."]  ID: "..cid.." Team: "..team.." TeamGo: "..teamGo.." !")
+				doSetStorage(configTWH.STORAGE.GLOBAL.TEAMS_COUNT[team], teamCount.get(team) - 1)
+				doSetStorage(configTWH.STORAGE.GLOBAL.TEAMS_COUNT[teamGo], teamCount.get(teamGo) + 1)
+			end
+		}
+		frags = {
+			get = function (cid)
+				local query = db.getResult("SELECT `frags` FROM `players` WHERE `id` = " .. getPlayerGUID(cid) .. " LIMIT 1;")
+				return query:getDataInt("frags")
+			end,
+			add = function (cid, amount)
+				return db.executeQuery("UPDATE `players` SET `frags` = `frags` + " .. amount .. " WHERE `id` = " .. getPlayerGUID(cid) .. ";")
+			end
+		}
+		fragsOnline = {
+			add = function(cid, amount)
+				return db.executeQuery("UPDATE `players` SET `frags_online` = `frags_online` + " .. amount .. " WHERE `id` = " .. getPlayerGUID(cid) .. ";")
+			end,
+			get = function(cid)
+				local query = db.getResult("SELECT `frags_online` FROM `players` WHERE `id` = " .. getPlayerGUID(cid) .. " LIMIT 1;")
+				return query:getDataInt("frags_online")
+			end,
+			cleanStart = function(cid)
+				return db.executeQuery("UPDATE `players` SET `frags_online` = '0' WHERE `id` = '" .. getPlayerGUID(cid) .. "';")
+			end,
+			cleanALL = function()
+				return db.executeQuery("UPDATE `players` SET `frags_online` = '0';")
+			end
+		}
+		deaths = {
+			get = function (cid)
+				local query = db.getResult("SELECT `deaths` FROM `players` WHERE `id` = " .. getPlayerGUID(cid) .. ";")
+				return query:getDataInt("deaths")
+			end,
+			add = function (cid, amount)
+				return db.executeQuery("UPDATE `players` SET `deaths` = `deaths` + " .. amount .. " WHERE `id` = " .. getPlayerGUID(cid) .. ";") 
+			end
+		}
+		outfit = {
+			-- // Set Team Color
+			setTeam = function (cid, team)
+				doCreatureSetStorage(cid, configTWH.STORAGE.PLAYER.OUTFIT_Status, 1)
+				if (not isPremium(cid)) then
+					doCreatureChangeOutfit(cid, configTWH.TEAMS_SET[team])
+				elseif isPremium(cid) then
+					local newOutfit = {
+						{lookType = getCreatureOutfit(cid).lookType, lookHead = configTWH.TEAMS_SET[team].lookHead, lookAddons = getCreatureOutfit(cid).lookAddons, lookLegs = configTWH.TEAMS_SET[team].lookLegs, lookBody = configTWH.TEAMS_SET[team].lookBody, lookFeet = configTWH.TEAMS_SET[team].lookFeet},
+						{lookType = getCreatureOutfit(cid).lookType, lookHead = configTWH.TEAMS_SET[team].lookHead, lookAddons = getCreatureOutfit(cid).lookAddons, lookLegs = configTWH.TEAMS_SET[team].lookLegs, lookBody = configTWH.TEAMS_SET[team].lookBody, lookFeet = configTWH.TEAMS_SET[team].lookFeet},
+						{lookType = getCreatureOutfit(cid).lookType, lookHead = configTWH.TEAMS_SET[team].lookHead, lookAddons = getCreatureOutfit(cid).lookAddons, lookLegs = configTWH.TEAMS_SET[team].lookLegs, lookBody = configTWH.TEAMS_SET[team].lookBody, lookFeet = configTWH.TEAMS_SET[team].lookFeet}
+					}
+					doCreatureChangeOutfit(cid, newOutfit[team])
+				end
+			end,
+			
+			-- Set Random Outfits/Color
+			setRandomColor = function(cid)
+				doCreatureSetStorage(cid, configTWH.STORAGE.PLAYER.OUTFIT_Status, 1)
+				local out = getCreatureOutfit(cid)
+				doCreatureChangeOutfit (cid, {lookType = out.lookType, lookHead = math.random(0, 132), lookBody = math.random(0, 132), lookLegs = math.random(0, 132), lookFeet = math.random(0, 132), lookAddons = out.lookAddons } )
+			end
+		}
+		ranking = {
+			-- ranking.getTopFragsOnline()
+			getTopFragsOnline = function()
+				local query = db.getResult("SELECT `name` FROM `players` WHERE `online` = '1' ORDER BY `frags_online` DESC LIMIT 1;")
+				return query:getDataString("name")
+			end
+			-- getPlayerGUID
+		}
+		-- Player Set Team [Login]
+		doPlayerSetTeam = {
+			login = function (cid)
+				
+				if (getPlayerAccess(cid) <= 3) and (getCreatureName(cid) ~= "Account Manager") then
+					-- Player Mensagem
+					doPlayerSendTextMessage(cid, MESSAGE_STATUS_CONSOLE_ORANGE ,"[ TeamWarOT HardCore ]  Site: http://TeamWarOT.com/  -  IP: TeamWarOT.com")
+					doPlayerSendTextMessage(cid, MESSAGE_STATUS_CONSOLE_ORANGE ,"   Accounts      :   1/1 - Sorcerer  |  2/2 - Druid  |  3/3 Paladin  |  4/4 Knight ")
+					doPlayerSendTextMessage(cid, MESSAGE_STATUS_CONSOLE_ORANGE ,"   Commands    :   !commands, !frags, !top, !online, !map, !maps")
+					doPlayerSendTextMessage(cid, MESSAGE_STATUS_CONSOLE_ORANGE ,"    Players        :   Team Red   [".. teamCount.get(1) .."]   vs   [".. teamCount.get(2) .."]   Team Green")
+					doPlayerSendTextMessage(cid, MESSAGE_STATUS_CONSOLE_ORANGE ,"  Team Frags   :   Team Red   [".. fragsTeam.get(1) .."]   vs   [".. fragsTeam.get(2) .."]   Team Green")
+					doPlayerSendTextMessage(cid, MESSAGE_STATUS_CONSOLE_ORANGE ,"   Map Info       :   Game Map:  ".. mapInfo.mapName() .."  NextMap:  ".. mapInfo.mapNameNext())
+
+					--  1 = Team vs Team (Normal)  2 = Quest Map (No-PvP?)  3 = Capture The Flag (Normal + Capture)  4 = Deathmatch (Player vs All)
+					-- // 1 = Team vs Team (Normal)
+					if (configTWH.mapStats[map.get()].mapType[1] == 1) then
+						--print("[Login-MapType] 1 = Team vs Team (Normal)")
+						
+						-- Set Team Small
+						local team = getSmallestTeam()
+						playerTeam.set(cid, configTWH.STORAGE.GLOBAL.TEAMS[team])
+						
+						-- Set Team Color Outfits
+						outfit.setTeam(cid, team)
+						
+						-- Team Count e Resete Frags
+						teamCount.add(team, 1)
+						
+						-- Set Town & Position
+						doPlayerSetTown(cid, configTWH.mapStats[map.get()].templeIDs[playerTeam.get(cid)])
+						doTeleportThing(cid, getTownTemplePosition(getPlayerTown(cid)), true, true)
+						
+					-- // 2 = Quest Map (No-PvP?)
+					elseif (configTWH.mapStats[map.get()].mapType[1] == 2) then
+					
+					-- // 3 = Capture The Flag (Normal + Capture)
+					elseif (configTWH.mapStats[map.get()].mapType[1] == 3) then
+					
+					-- // 4 = Deathmatch (Player vs All)
+					elseif (configTWH.mapStats[map.get()].mapType[1] == 4) then		
+						--print("[Change-MapType] 4 = Deathmatch (Player vs All)")
+						
+						-- Set Town & Position
+						doPlayerSetTown(cid, math.random(configTWH.mapStats[map.get()].templeIDs[1], configTWH.mapStats[map.get()].templeIDs[2]))
+						doTeleportThing(cid, getTownTemplePosition(getPlayerTown(cid)), true, true)
+						
+						-- Set Random Outfits/Color
+						outfit.setRandomColor(cid)
+					end
+					
+					
+					-- MapType Informacao
+					doPlayerSendTextMessage(cid, MESSAGE_STATUS_CONSOLE_ORANGE , configTWH.mapType[mapTypeManager.get()].descricao)
+					--doPlayerPopupFYI(cid, configTWH.mapType[mapTypeManager.get()].descricao)
+					
+					
+					-- Player Set (Level / Health / Mana)
+					if not isPremium(cid) and (getPlayerLevel(cid) <= configTWH.startPlayer.LevelFree) then 
+						-- Free Players
+						doPlayerAddExperience(cid, (getExperienceForLevel(configTWH.startPlayer.LevelFree) - getPlayerExperience(cid)))
+						
+					elseif isPremium(cid) and getPlayerPromotionLevel(cid) == 0 and (getPlayerLevel(cid) <= configTWH.startPlayer.LevelFree) then
+						-- Premium 
+						doPlayerAddExperience(cid, (getExperienceForLevel(configTWH.startPlayer.LevelFree) - getPlayerExperience(cid)))
+						
+					elseif isPremium(cid) and getPlayerPromotionLevel(cid) == 1 and (getPlayerLevel(cid) <= configTWH.startPlayer.LevelPremium) then
+						-- Premium com Promotion
+						doPlayerAddExperience(cid, (getExperienceForLevel(configTWH.startPlayer.LevelPremium) - getPlayerExperience(cid)))
+						
+					end
+					
+					
+					-- Clean Player Frags Online
+					fragsOnline.cleanStart(cid)
+					
+					-- Set Max (Health & Mana)
+					doCreatureAddHealth(cid, getCreatureMaxHealth(cid) - getCreatureHealth(cid))
+					doCreatureAddMana(cid, (getCreatureMaxMana(cid) - getCreatureMana(cid)))
+					
+					-- Remove Conditions
+					doRemoveCondition(cid, CONDITION_INFIGHT)
+					
+					-- Send Magic Effect
+					doSendMagicEffect(getCreaturePosition(cid), 37)
+					doSendMagicEffect(getCreaturePosition(cid), 2)
+
+
+					if isInArray(configTWH.defaultCharAccoutID, getAccountIdByName(getPlayerName(cid))) then
+						doPlayerPopupFYI(cid, "                         Sample Accounts \n \n - Português \n Atenção está é uma account exemplo, \npor favor Crie sua Account. \n\n - Inglês \n Please note this is such an account, \n please Create Your Account. \n\n - Espanhol \n Tenga en cuenta que es como una cuenta,\n crear una cuenta. \n \n Site:  http://TeamWarOT.com/ \n")
+					else
+						doPlayerPopupFYI(cid, "            TeamWarOT HardCore Enforced\n                  http://TeamWarOT.com/ \n \n  Commands:\n       !top - Show best killers today!\n       !map - Show map information!\n       !maps - Show map list!\n       !frags  -  Show statistics of war!\n       !online - Show information of team's!\n      \nby God Hard")
+					end
+					--print("[IN] Team I ["..teamCount.get(1).."]  vs  ["..teamCount.get(2).."] Team II  =  Team Total: ".. (teamCount.get(1)+teamCount.get(2)))
+					
+				elseif getPlayerAccess(cid) >= 3 then
+				
+					-- Admin Mensagem
+					doPlayerSendTextMessage(cid, MESSAGE_STATUS_CONSOLE_ORANGE ,"Admin!")
+					
+					-- Send Temple Atual
+					doPlayerSetTown(cid, configTWH.mapStats[map.get()].templeIDs[1])
+					
+					-- Teleport Templo
+					doTeleportThing(cid, getTownTemplePosition(getPlayerTown(cid)))
+					
+				end
+				return TRUE
+			end
+		}
+
+		-- |		Change Map Mod 			| --
+		function map_change(id)
+
+			local tmpID = id or mapInfo.mapIdNext()
+			map.set(tmpID)
+			
+			-- Set Map Type
+			mapTypeManager.set(configTWH.mapStats[map.get()].mapType[1])
+			teamCount.start(1)
+			teamCount.start(2)
+			
+			for _, pid in ipairs(getPlayersOnline()) do
+				if (getPlayerAccess(pid) < configTWH.mapChange.accessIgnore) and (getCreatureName(pid) ~= "Account Manager") then
+					
+					if (not isInPosition(getPlayerPosition(pid), configTWH.protectArea[1])) then
+						
+						--  1 = Team vs Team (Normal)  2 = Quest Map (No-PvP?)  3 = Capture The Flag (Normal + Capture)  4 = Deathmatch (Player vs All)
+						-- // 1 = Team vs Team (Normal)
+						if (configTWH.mapStats[map.get()].mapType[1] == 1) then
+							--print("[Change-MapType] 1 = Team vs Team (Normal)")
+							
+							local teamSmall = getSmallestTeam()
+							--print("TeamSmall: "..teamSmall.."  TempleId: "..configTWH.mapStats[map.get()].templeIDs[playerTeam.get(pid)])
+							
+							-- Set Team Small
+							playerTeam.set(pid, configTWH.STORAGE.GLOBAL.TEAMS[teamSmall])
+							
+							-- Team Count
+							teamCount.add(teamSmall, 1)
+							
+							-- Set Team Color Outfits
+							outfit.setTeam(pid, teamSmall)
+							
+							-- Set Town & Position
+							doPlayerSetTown(pid, configTWH.mapStats[map.get()].templeIDs[playerTeam.get(pid)])
+							doTeleportThing(pid, getTownTemplePosition(getPlayerTown(pid)), true, true)
+
+						-- // 2 = Quest Map (No-PvP?)
+						elseif (configTWH.mapStats[map.get()].mapType[1] == 2) then
+						
+						-- // 3 = Capture The Flag (Normal + Capture)
+						elseif (configTWH.mapStats[map.get()].mapType[1] == 3) then
+						
+						-- // 4 = Deathmatch (Player vs All)
+						elseif (configTWH.mapStats[map.get()].mapType[1] == 4) then	
+						
+							-- print("[Change-MapType] 4 = Deathmatch (Player vs All) A ".. configTWH.mapStats[map.get()].templeIDs[1])
+							
+							-- Set Town & Position
+							doPlayerSetTown(pid, math.random(configTWH.mapStats[map.get()].templeIDs[1], configTWH.mapStats[map.get()].templeIDs[2]))
+							doTeleportThing(pid, getTownTemplePosition(getPlayerTown(pid)), true, true)
+							
+							-- Set Random Outfits/Color
+							doCreatureSetStorage(pid, configTWH.STORAGE.PLAYER.OUTFIT_Status, 1)
+							local out = getCreatureOutfit(pid)
+							doCreatureChangeOutfit (pid, {lookType = out.lookType, lookHead = math.random(0, 132), lookBody = math.random(0, 132), lookLegs = math.random(0, 132), lookFeet = math.random(0, 132), lookAddons = out.lookAddons } )
+						end
+						
+						doRemoveConditions(pid, false)
+						doSendMagicEffect(getCreaturePosition(pid), 10)
+					end
+				end
+				if (getPlayerAccess(pid) > configTWH.mapChange.accessIgnore) then
+					doTeleportThing(pid, configTWH.mapStats[map.get()].templePositions[1])
+				end
+			end
+			
+			doCleanMap()
+			doBroadcastMessage("Team Red [".. fragsTeam.get(1) .."]  vs  [".. fragsTeam.get(2) .."] Team Green", MESSAGE_STATUS_CONSOLE_ORANGE)
+
+			fragsTeam.start(1)
+			fragsTeam.start(2)
+			
+			doBroadcastMessage("Map has been changed. New map is ".. configTWH.mapStats[map.get()].name .." with type is "..configTWH.mapStats[map.get()].mapType[2]..".", MESSAGE_STATUS_CONSOLE_BLUE)
+		end
+		function isInPosition(pos, area)
+			if pos.x >= area.fromx and pos.x <= area.tox then
+				if pos.y >= area.fromy and pos.y <= area.toy then
+					if pos.z >= area.fromz and pos.z <= area.toz then
+						return true
+					end
+				end
+			end
+			return false
+		end 
+		function getSmallestTeam()
+			if (teamCount.get(1) < teamCount.get(2)) then
+				teamID = 1
+			else
+				teamID = 2
+			end
+			return teamID
+		end
+		function getTimeMap(s)
+			local n = math.floor(s / 60)
+			s = s - (60 * n)
+			return n, s
+		end
+		function mostraTempo(cid)
+			local minutesY,secondsY = getTimeMap(configTWH.mapChange.timer-(os.time()-getStorage(configTWH.mapChange.timerStorage)))
+			-- 1 = Team vs Team (Normal)
+			if (configTWH.mapStats[map.get()].mapType[1] == 1) then
+				msgTMP = "[TeamWarOT]  -*|*-  Red [".. fragsTeam.get(1) .."] X [".. fragsTeam.get(2) .. "] Green  |  Map: "..mapInfo.mapName().." |  Change Map in "..minutesY..":"..secondsY.."  -*|*-  [".. configTWH.mapStats[map.get()].mapType[2] .."]"
+			-- 2 = Quest Map (No-PvP?)
+			elseif (configTWH.mapStats[map.get()].mapType[1] == 2) then
+			
+			-- 3 = Capture The Flag (Normal + Capture)
+			elseif (configTWH.mapStats[map.get()].mapType[1] == 3) then
+			
+			-- 4 = Deathmatch (Player vs All)
+			elseif (configTWH.mapStats[map.get()].mapType[1] == 4) then
+				msgTMP = "[TeamWarOT]  -*|*-  Top: "..ranking.getTopFragsOnline().." ("..fragsOnline.get(getPlayerByName(ranking.getTopFragsOnline())).." kills)  |  Map: "..mapInfo.mapName().." |  Change Map in "..minutesY..":"..secondsY.."  -*|*-  [".. configTWH.mapStats[map.get()].mapType[2] .."]"
+			end
+			doPlayerSendCancel(cid, msgTMP)
+		end
+		function playerKickMC(cid)
+			if isPlayer(cid) then
+				doRemoveCreature(cid)
+			end
+		end
+		function equilibrar()
+			teamCount.start(1)
+			teamCount.start(2)
+			for _, pid in ipairs(getPlayersOnline()) do
+				if (getPlayerAccess(pid) < configTWH.mapChange.accessIgnore) and (getCreatureName(pid) ~= "Account Manager") then
+					for _, area in ipairs(configTWH.protectArea) do
+						if (not isInPosition(getCreaturePosition(pid), area)) then
+							playerTeam.set(pid, configTWH.STORAGE.GLOBAL.TEAMS[getSmallestTeam()])
+						end
+					end
+				end
+			end
+			return true
+		end
+		function getCurrentPlayers()
+			local db_player = db.getResult("SELECT `name` FROM `players` WHERE `account_id` <> '10' AND `account_id` <> '20' AND `account_id` <> '30' AND `account_id` <> '40' ORDER BY `name` ASC;")
+			local players = {}
+
+			if (db_player:getID() ~= -1) then
+				repeat
+					table.insert(players, db_player:getDataString("name"))
+				until not db_player:next()
+			end
+			db_player:free()
+			return players
+		end
+		function getCurrentAccounts()
+			local db_accounts = db.getResult("SELECT `id`, `name` FROM `accounts` WHERE `id` <> '10' AND `id` <> '20' AND `id` <> '30' AND `id` <> '40' ORDER BY `name` ASC;")
+			local accounts = {}
+
+			if (db_accounts:getID() ~= -1) then
+				repeat
+					table.insert(accounts, db_accounts:getDataString("name"))
+				until not db_accounts:next()
+			end
+			db_accounts:free()
+			return accounts
+		end
+	]]></lib>
+
+	<event type="look" name="TeamWarLook" event="script"><![CDATA[
+		domodlib('TeamWar-config')
+		domodlib('TeamWar-lib')
+			
+		function onLook(cid, thing, position, lookDistance)
+			if(isPlayer(thing.uid) and thing.uid ~= cid) then
+				doPlayerSetSpecialDescription(thing.uid,' Frags: '..frags.get(thing.uid)..',  Frags Online: '..fragsOnline.get(thing.uid))
+			elseif (thing.uid == cid) then
+				local message = "You see yourself."
+				if(getPlayerFlagValue(cid, PLAYERFLAG_SHOWGROUPINSTEADOFVOCATION)) then
+					message = message .. " You are " .. getPlayerGroupName(cid) .. "."
+				elseif(getPlayerVocation(cid) ~= 0) then
+					message = message .. " You are a " .. getPlayerVocationName(cid):lower() .. "."
+				else
+					message = message .. " You have no vocation."
+				end
+				--if(getPlayerNameByGUID(getPlayerPartner(cid), false, false) ~= nil) then
+				--	message = message .. " You are " .. (getPlayerSex(cid) == PLAYERSEX_FEMALE and "wife" or "husband") .. " of " .. getPlayerNameByGUID(getPlayerPartner(cid)) .. "."
+				--end
+				if(getPlayerGuildId(cid) > 0) then
+					message = message .. " You are " .. (getPlayerGuildRank(cid) == "" and "a member" or getPlayerGuildRank(cid)) .. " of the " .. getPlayerGuildName(cid)
+					message = getPlayerGuildNick(cid) ~= "" and message .. " (" .. getPlayerGuildNick(cid) .. ")." or message .. "."
+				end
+				if(getPlayerFlagValue(cid, PLAYERCUSTOMFLAG_CANSEECREATUREDETAILS)) then
+					message = message .. "\nHealth: [" .. getCreatureHealth(cid) .. " / " .. getCreatureMaxHealth(cid) .. "], Mana: [" .. getCreatureMana(cid) .. " / " .. getCreatureMaxMana(cid) .. "]."
+					message = message .. "\nIP: " .. doConvertIntegerToIp(getPlayerIp(cid)) .. ", Client: " .. getClientVersion(cid) .. "."
+				end
+				if(getPlayerFlagValue(cid, PLAYERCUSTOMFLAG_CANSEEPOSITION)) then
+					message = message .. "\nPosition: [X: " .. position.x .. "] [Y: " .. position.y .. "] [Z: " .. position.z .. "]."
+				end
+				doPlayerSetSpecialDescription(cid,' Frags: '..frags.get(cid)..'  and  Frags Online: '..fragsOnline.get(cid))
+				doPlayerSendTextMessage(cid, MESSAGE_INFO_DESCR, message.. " Frags: "..frags.get(cid)..",  Frags Online: "..fragsOnline.get(cid))  
+				return false
+			end
+			return true
+		end
+	]]></event>
+
+	<event type="death" name="TeamWarDeathBroadcast" event="script"><![CDATA[
+		domodlib('TeamWar-config')
+		domodlib('TeamWar-lib')
+		
+		function onDeath(cid, corpse, deathList)
+			
+			-- Get Type for Killing and Get ALl Players 
+			local strings = {""}
+			local t, position = 1, 1
+
+			if not isInArray(configTWH.defaultCharAccoutID, getAccountIdByName(getPlayerName(cid))) then
+				deaths.add(cid, 1)
+			end
+			
+			local deathType = "killed"
+			local toSlain, toCrushed, toEliminated = 3, 9, 15
+
+			if #deathList >= toSlain and #deathList < toCrushed then
+				deathType = "slain"
+			elseif #deathList >= toCrushed and #deathList < toEliminated then
+				deathType = "crushed"
+			elseif #deathList >= toEliminated then
+				deathType = "eliminated"
+			end
+			
+			-- Need Set Limit 5 Players Gain Experience
+			for _, pid in ipairs(deathList) do
+				local killer = pid
+				if (isPlayer(killer) == TRUE) then
+				
+					-- Multi Client Use
+					if (configTWH.deathBroadcast.MultiIp.use) and (getPlayerIp(cid) == getPlayerIp(killer)) then
+						doPlayerSendTextMessage(killer, MESSAGE_STATUS_CONSOLE_BLUE, "Sorry, just different ips gain exp, count frags and backpack of stone skin amulet.")
+						return TRUE
+					end
+					
+					-- Check Last Ip killed
+					if (configTWH.deathBroadcast.MultiIp.use) and (getCreatureStorage(killer, configTWH.deathBroadcast.lastKillerStorage) == getPlayerIp(cid)) then
+						doPlayerSendTextMessage(killer, MESSAGE_STATUS_CONSOLE_BLUE, "Sorry, you do not get frag when killing the same player (ip)!")
+						return TRUE
+					else
+						doCreatureSetStorage(killer, configTWH.deathBroadcast.lastKillerStorage, getPlayerIp(cid))
+					end
+					
+					-- Frag Count MYSQL
+					if (configTWH.deathBroadcast.FragCount.use) then
+						if not isInArray(configTWH.defaultCharAccoutID, getAccountIdByName(getPlayerName(killer))) then
+							frags.add(killer, 1)
+						end
+					end
+					
+					-- Frags Count Storage
+					fragsOnline.add(killer, 1)
+			
+					-- Killer & Target Level
+					local killerKills = fragsOnline.get(killer)
+					local killerLevel = getPlayerLevel(killer)
+					local targetLevel = getPlayerLevel(cid)
+					local levelDiff = targetLevel - killerLevel
+					
+					local values = {
+						["KILLERKILLSALL"]         = frags.get(killer),
+						["KILLERKILLS"]         = killerKills,
+						["KILLERDEATHS"]        = killerDeaths,
+						["KILLERNAME"]          = getCreatureName(killer),
+						["KILLERLEVEL"]         = killerLevel,
+						["TARGETKILLS"]         = targetKills,
+						["TARGETDEATHS"]        = targetDeaths,
+						["TARGETNAME"]          = getCreatureName(cid),
+						["TARGETLEVEL"]         = targetLevel
+					}
+					
+					function formateString(str)
+						return(str:gsub("|([A-Z]+)|", (function(a) return values[a] end)))
+					end
+					if (configTWH.deathBroadcast.killMessage.use) then
+						doPlayerSendTextMessage(killer, configTWH.deathBroadcast.killMessage.messageClass, formateString(configTWH.deathBroadcast.killMessage.text))
+					end
+					if (configTWH.deathBroadcast.killerAnimation.use) then
+						doSendAnimatedText(getCreaturePosition(killer), configTWH.deathBroadcast.killerAnimation.text, configTWH.deathBroadcast.killerAnimation.color)
+					end
+					if (configTWH.deathBroadcast.targetAnimation.use) then
+						doSendAnimatedText(getCreaturePosition(cid), configTWH.deathBroadcast.targetAnimation.text, configTWH.deathBroadcast.targetAnimation.color)
+					end
+					if (configTWH.deathBroadcast.AnimeText.use) then
+					
+						if frags.get(killer) == 5 then
+							doBroadcastMessage(getCreatureName(killer) .. " is on killing spree! He killed 5 players!", MESSAGE_STATUS_CONSOLE_ORANGE)
+							
+						elseif frags.get(killer) == 10 then
+							doBroadcastMessage(getCreatureName(killer) .. " is dominating! He killed 10 players!", MESSAGE_STATUS_CONSOLE_ORANGE)
+							
+						elseif frags.get(killer) == 25 then
+							doBroadcastMessage(getCreatureName(killer) .. " is Serial Killer! He killed 25 players! Kill Him!", MESSAGE_STATUS_CONSOLE_ORANGE)
+							
+						elseif frags.get(killer) == 50 then
+							doBroadcastMessage(getCreatureName(killer) .. " is Insane Kills! He killed 50 players! DO SOMETHING!", MESSAGE_STATUS_CONSOLE_ORANGE)
+							
+						elseif frags.get(killer) == 75 then
+							doBroadcastMessage(getCreatureName(killer) .. " is Master Killa! He killed 75 players! STOP HIM!", MESSAGE_STATUS_CONSOLE_ORANGE)
+							
+						elseif frags.get(killer) == 100 then
+							doBroadcastMessage(getCreatureName(killer) .. " is UNSTOPPABLE!! He killed 100 players!! YOU MUST KILL HIM!!", MESSAGE_STATUS_CONSOLE_ORANGE)
+							
+						elseif frags.get(killer) == 125 then
+							doBroadcastMessage(getCreatureName(killer) .. " Gimme MORE!! He killed 125 players!! RUN WHILE YOU CAN!!", MESSAGE_STATUS_CONSOLE_ORANGE)
+							
+						elseif frags.get(killer) == 150 then
+							doBroadcastMessage(getCreatureName(killer) .. " is MERCENARY!!! He killed 150 players!! HIDE YOURSELF!!", MESSAGE_STATUS_CONSOLE_ORANGE)
+							
+						elseif frags.get(killer) == 175 then
+							doBroadcastMessage(getCreatureName(killer) .. " STOP IT!!! He killed 175 players!! JUST RUN!!", MESSAGE_STATUS_CONSOLE_ORANGE)
+							
+						elseif frags.get(killer) == 200 then
+							doBroadcastMessage(getCreatureName(killer) .. " is CHEEAATTEEERRRR!! He killed 200 players!!! GM LOOK HIM!!!", MESSAGE_STATUS_CONSOLE_ORANGE)
+							
+						elseif frags.get(killer) == 300 then
+							doBroadcastMessage(getCreatureName(killer) .. " is CHUCK NORRIS!!! HE KILLED 300 PLAYERS!!! RUN BEFORE HE FIND YOU!!!", MESSAGE_STATUS_CONSOLE_ORANGE)
+							
+						end
+					end
+					
+					-- Gain Money
+					local gold = 0
+					if (configTWH.deathBroadcast.GainMoney.use) then
+						gold = (math.random (getPlayerLevel(cid)/12, getPlayerLevel(cid)/10))
+						doPlayerAddItem(killer, configTWH.deathBroadcast.GainMoney.coinID, gold)
+					end
+					
+					-- Max Level Check
+					if (configTWH.deathBroadcast.MaxLevel.use) and (getPlayerLevel(killer) >= configTWH.deathBroadcast.MaxLevel.MAX) then
+						doPlayerSendTextMessage(killer, MESSAGE_STATUS_CONSOLE_BLUE, "Sorry, you are at maximum level.")
+					end
+					
+					-- Exp for Killing Players
+					if (configTWH.deathBroadcast.experienceByKillingPlayers.use) and (getPlayerLevel(killer) < configTWH.deathBroadcast.MaxLevel.MAX) then
+						--doPlayerAddLevel(killer, configTWH.deathBroadcast.experienceByKillingPlayers.levelAmount)
+						
+						local expGain = getPlayerExperience(cid) / 100
+						local expToNextLevel = getExperienceForLevel(getPlayerLevel(killer)+1) - getPlayerExperience(killer)
+						
+						doPlayerSendTextMessage(killer, MESSAGE_STATUS_CONSOLE_BLUE, "You have gained "..gold.." gold coin and ".. expGain .." experience for killing ".. getCreatureName(cid) .." and you need ".. expToNextLevel .." for the next level.")
+						doPlayerAddExperience(killer, expGain)
+					end
+					
+					-- [Player Level]  and  [Health & Mana]
+					if (not isPremium(cid)) then
+						-- Free Players
+						doPlayerAddExperience(cid, (getExperienceForLevel(configTWH.startPlayer.LevelFree) - getPlayerExperience(cid)))
+						
+					elseif isPremium(cid) and getPlayerPromotionLevel(cid) == 0 then
+						-- Premium Not Promotion
+						doPlayerAddExperience(cid, (getExperienceForLevel(configTWH.startPlayer.LevelFree) - getPlayerExperience(cid)))
+						
+					elseif isPremium(cid) and getPlayerPromotionLevel(cid) == 1 then
+						-- Premium Players
+						doPlayerAddExperience(cid, (getExperienceForLevel(configTWH.startPlayer.LevelPremium) - getPlayerExperience(cid)))
+						
+					end
+				end
+				
+				if isCreature(pid) == true then
+					strings[position] = t == 1 and "" or strings[position] .. ", "
+					strings[position] = strings[position] .. getCreatureName(pid) .. ""
+					-- print("Name By ".. getCreatureName(pid))
+					t = t + 1
+				else
+					strings[position] = t == 1 and "" or strings[position] .. ", "
+					strings[position] = strings[position] .."a field item"
+					t = t + 1
+				end
+			end
+			
+			-- Broadcast onDeath
+			for i, str in ipairs(strings) do
+				if(str:sub(str:len()) ~= ",") then
+					str = str .. "."
+				end
+				msg = getCreatureName(cid) .. " was " .. deathType .. " at level " .. getPlayerLevel(cid) .. " by " .. str
+			end
+			doBroadcastMessage(msg, MESSAGE_STATUS_CONSOLE_ORANGE)
+			
+			return TRUE
+		end
+	]]></event>
+
+	<globalevent name="TeamWarMensagens" interval="600000" event="script"><![CDATA[
+		domodlib('TeamWar-config')
+		domodlib('TeamWar-lib')
+		
+		function onThink(interval, lastExecution)
+			
+			local message = math.random(1, #configTWH.mensagens)
+			doBroadcastMessage(configTWH.mensagens[message], MESSAGE_EVENT_ADVANCE)
+			
+			return TRUE
+		end
+	]]></globalevent>
+	
+	<event type="kill" name="TeamWarSkullSystem" event="script"><![CDATA[
+		function onKill(cid, target, damage, flags, war)
+			domodlib('TeamWar-config')
+			domodlib('TeamWar-lib')
+			
+			if isPlayer(target) then
+				local frags = fragsOnline.get(cid)
+				
+				if(frags >= 500) then
+					-- Need Compilation again in Windows
+					--doCreatureSetSkullType(cid, SKULL_BLACK)
+					
+				elseif(frags >= 400) then
+					doCreatureSetSkullType(cid, SKULL_RED)
+					
+				elseif(frags >= 300) then
+					doCreatureSetSkullType(cid, SKULL_WHITE)
+					
+				elseif(frags >= 200) then
+					doCreatureSetSkullType(cid, SKULL_GREEN)
+					
+				elseif(frags >= 100) then
+					doCreatureSetSkullType(cid, SKULL_YELLOW)
+					
+				end
+			end
+			
+			return TRUE
+		end
+	]]></event>
+		
+	<globalevent type="startup" name="TeamWarStart"  event="script"><![CDATA[
+		domodlib('TeamWar-config')
+		domodlib('TeamWar-lib')
+		
+		function onStartup()
+			
+			-- Team Count Resete 
+			teamCount.start(1)
+			teamCount.start(2)
+			teamCount.start(3)
+			
+			-- Frags Online Mysql
+			fragsOnline.cleanALL()
+			
+			-- Map Change
+			map_change(mapInfo.mapIdNext())
+			
+			-- Statistics
+			print("--------------------------| Statistics |--------------------------")
+			print("The server have: "..#getCurrentAccounts().." accounts and "..#getCurrentPlayers().." players registred!")
+			print("--------------------------------------------------------------------")
+			return TRUE
+			
+		end
+	]]></globalevent>
+	
+	<talkaction words="!map;!maps;!frags;!online;!rank;!top;!comandos;/comandos" event="script"><![CDATA[
+		domodlib('TeamWar-config')
+		domodlib('TeamWar-lib')
+		
+		function onSay(cid, words, param, channel)
+		
+			if(words == "!map") then
+				local minutesX,secondsX = getTimeMap(configTWH.mapChange.timer-(os.time()-getStorage(configTWH.mapChange.timerStorage)))
+				doPlayerSendTextMessage(cid, MESSAGE_STATUS_CONSOLE_ORANGE, "[ Game Map ]  Map: ".. mapInfo.mapName().." ("..configTWH.mapStats[map.get()].mapType[2]..")  NextMap ".. mapInfo.mapNameNext().." ("..configTWH.mapStats[mapInfo.mapIdNext()].mapType[2]..") in "..minutesX..":"..secondsX..".")
+				return TRUE
+			end
+			
+			if(words == "!maps") then
+				local msg = ""
+				for i=1, #configTWH.mapStats do
+					msg = msg .. configTWH.mapStats[i].name .." | "
+				end
+				doPlayerSendTextMessage(cid, MESSAGE_STATUS_CONSOLE_ORANGE, "[ Maps ]  ".. msg)
+				return TRUE
+			end
+			
+			if(words == "!frags") then
+				doPlayerSendTextMessage(cid, MESSAGE_STATUS_CONSOLE_ORANGE, "[ Frags Online ]  ".. fragsOnline.get(cid) .."  |  [ Frags ALL ]  ".. frags.get(cid) ..".")
+				return TRUE
+			end
+						
+			if(words == "!online") then
+				doPlayerSendTextMessage(cid, MESSAGE_STATUS_CONSOLE_BLUE ,"[             Players Online             ]")
+				-- 1 = Team vs Team (Normal)
+				if (configTWH.mapStats[map.get()].mapType[1] == 1) then
+					doPlayerSendTextMessage(cid, MESSAGE_STATUS_CONSOLE_BLUE ,"Team Red   [".. teamCount.get(1) .."]   vs   [".. teamCount.get(2) .."]   Team Green")
+				end
+				doPlayerSendTextMessage(cid, MESSAGE_STATUS_CONSOLE_BLUE ,"Players Online: "..#getPlayersOnline().."  inWar: "..#getPlayersOnline()-teamCount.get(3))
+				return TRUE
+			end
+			
+			if(words == "!top") then
+			
+				local OnlinePlayers = getPlayersOnline()
+				local t, ret = {}, "Best Fragers Online:"
+				for _, cid in ipairs(OnlinePlayers) do
+					table.insert(t, {cid, db.getResult("SELECT `frags_online` FROM `players` WHERE `id` = " .. getPlayerGUID(cid) .. " LIMIT 1;"):getDataInt("frags_online")})
+				end
+				table.sort(t, function(a,b) return a[2] > b[2] end)
+				for i = 1, math.min(#t, configTWH.maxTopRanking) do
+					ret = ret .. "\n" .. i .. ". [".. getPlayerLevel(t[i][1]).."] " .. getPlayerName(t[i][1]) .. " - " .. t[i][2] .. " frags"
+				end
+				if (OnlinePlayers ~= 0) then
+					doPlayerSendTextMessage(cid, MESSAGE_STATUS_CONSOLE_ORANGE, "           [             Score             ]           ")
+					-- 1 = Team vs Team (Normal)
+					if (configTWH.mapStats[map.get()].mapType[1] == 1) then
+						doPlayerSendTextMessage(cid, MESSAGE_STATUS_CONSOLE_ORANGE, "Team Red   [".. fragsTeam.get(1) .."]   vs   [".. fragsTeam.get(2) .."]   Team Green")
+					end
+					doPlayerSendTextMessage(cid, MESSAGE_STATUS_CONSOLE_ORANGE, ret)
+					return TRUE
+				end
+				
+				return TRUE
+			end
+			
+			if(words == "!comandos") or (words == "!commands") then
+				doPlayerSendTextMessage(cid, MESSAGE_STATUS_CONSOLE_ORANGE, "[ Commands ]  !frags, !top, !online, !map, !maps")
+				return TRUE
+			end
+			
+			if(words == "!rank") then
+				limitRank = 30
+				displayoutput = {"Level","Magic Level","Fist Fighting","Club Fighting","Sword Fighting","Axe Fighting","Distance Fighting","Shielding","Fishing","Frags","Deaths"}
+				itemtype = {9969,9933,5896,8929,8932,7388,8849,8906,2580,9969,9969}
+				number = 1
+				param = string.lower(param)
+				skilllist = ""
+				command = TRUE
+				if param == "level" then        
+					display = 1
+				elseif param == "magic" then
+					display = 2
+				elseif param == "fist" then
+					id = 0
+					display = 3
+				elseif param == "club" then
+					id = 1
+					display = 4
+				elseif param == "sword" then
+					id = 2
+					display = 5
+				elseif param == "axe" then
+					id = 3
+					display = 6
+				elseif param == "distance" then
+					id = 4
+					display = 7
+				elseif param == "shield" then
+					id = 5
+					display = 8
+				elseif param == "fish" then
+					display = 9
+					id = 6
+				elseif param == "frags" then
+					display = 10
+				elseif param == "deaths" then
+					display = 11
+				else 
+					error = '                         [ TeamWarOT ]                          \nHighscore Commands:\n\n!rank level\n!rank magic\n!rank fist\n!rank club\n!rank sword\n!rank axe\n!rank distance\n!rank shield\n!rank fish\n!rank frags\n!rank deaths'
+					doShowTextDialog(cid, 5958, error)
+					command = FALSE
+				end
+				if command ~= FALSE then
+					if display == 1 then
+						local player = db.getResult("SELECT `name`, `level` FROM `players` WHERE group_id < '2' ORDER BY `level` DESC LIMIT "..limitRank..";")    
+						if(player:getID() ~= -1) then
+							while (true) do
+								local name = player:getDataString("name")
+								local level = player:getDataInt("level")
+								skilllist = skilllist.. "\n#"..string.format("%5s",number.."   "..name.."  -  "..level)
+								number = number + 1
+								if not(player:next()) then
+									break
+								end
+							end
+							player:free()
+						end
+					elseif display == 2 then
+						local player = db.getResult("SELECT `name`, `maglevel` FROM `players` WHERE group_id < '2' ORDER BY `maglevel` DESC LIMIT "..limitRank..";")
+						if(player:getID() ~= -1) then    
+							while (true) do
+								local name = player:getDataString("name")
+								local maglevel = player:getDataInt("maglevel")
+								skilllist = skilllist.. "\n#"..string.format("%5s",number.."   "..name.."  -  "..maglevel)
+								if not(player:next()) then
+									break
+								end
+								number = number + 1
+							end
+						end
+						player:free()
+					elseif display == 10 then
+						local player = db.getResult("SELECT `name`, `frags` FROM `players` WHERE group_id < '2' ORDER BY `frags` DESC LIMIT 30;")
+						if(player:getID() ~= -1) then    
+							while (true) do
+								local name = player:getDataString("name")
+								local frags = player:getDataInt("frags")
+								skilllist = skilllist.. "\n#"..string.format("%5s",number.."   "..name.."  -  "..frags)
+								if not(player:next()) then
+									break
+								end
+								number = number + 1
+							end
+						end
+						player:free()
+					elseif display == 11 then
+						local player = db.getResult("SELECT `name`, `deaths` FROM `players` WHERE group_id < '2' ORDER BY `deaths` DESC LIMIT "..limitRank..";")
+						if(player:getID() ~= -1) then    
+							while (true) do
+								local name = player:getDataString("name")
+								local deaths = player:getDataInt("deaths")
+								skilllist = skilllist.. "\n#"..string.format("%5s",number.."   "..name.."  -  "..deaths)
+								if not(player:next()) then
+									break
+								end
+								number = number + 1
+							end
+						end
+						player:free()
+					else
+						local skills = db.getResult("SELECT `player_id`, `value`, `skillid` FROM `player_skills` WHERE `skillid` = "..id.." ORDER BY `value` DESC;")
+						while (true) do
+						local GUID = skills:getDataInt("player_id")
+						local value = skills:getDataInt("value")
+						local skillid = skills:getDataInt("skillid")
+						local player = db.getResult("SELECT `name` FROM `players` WHERE `id` = "..GUID.." and group_id < '2' ")
+						if(player:getID() ~= -1) then
+							local name = player:getDataString("name")
+							skilllist = skilllist.. "\n#"..string.format("%5s",number.."   "..name.."  -  "..value)
+							number = number + 1
+							player:free()
+						end
+						if number > limitRank then
+							break
+						end
+							if not(skills:next()) then
+								break
+							end
+						end
+						skills:free()
+					end
+					dialog = "                         [ TeamWarOT ]                          \n"..displayoutput[display].." Highscores: \n  "..skilllist..""
+					doShowTextDialog(cid, itemtype[display], dialog)
+					return TRUE
+				end
+			end
+
+			return TRUE
+		end
+	]]></talkaction>
+	
+	<globalevent name="TeamWarRanking" interval="300000" event="script"><![CDATA[
+		domodlib('TeamWar-config')
+		domodlib('TeamWar-lib')
+		
+		function onThink(interval, lastExecution)
+		
+			local OnlinePlayers = getPlayersOnline()
+			if OnlinePlayers == 0 then
+				return TRUE
+			end
+			local t, ret = {}, "Best Fragers Online:"
+			for _, cid in ipairs(OnlinePlayers) do
+				table.insert(t, {cid, db.getResult("SELECT `frags_online` FROM `players` WHERE `id` = "..getPlayerGUID(cid).." LIMIT 1;"):getDataInt("frags_online")})
+			end
+			table.sort(t, function(a,b) return a[2] > b[2] end)
+			for i = 1, math.min(#t, configTWH.maxTopRanking) do
+				ret = ret .. "\n" .. i .. ". [".. getPlayerLevel(t[i][1]).."] " .. getPlayerName(t[i][1]) .. " - " .. t[i][2] .. " frags"
+			end
+			if (OnlinePlayers ~= 0) then
+				doBroadcastMessage("           [             Score             ]           ", MESSAGE_STATUS_CONSOLE_ORANGE)
+			end
+			-- // 1 = Team vs Team (Normal)
+			if (configTWH.mapStats[map.get()].mapType[1] == 1) then
+				doBroadcastMessage("Team Red   [".. teamCount.get(1) .."]   vs   [".. teamCount.get(2) .."]   Team Green", MESSAGE_STATUS_CONSOLE_ORANGE)
+			-- // 2 = Quest Map (No-PvP?)
+			elseif (configTWH.mapStats[map.get()].mapType[1] == 2) then
+				
+			-- // 3 = Capture The Flag (Normal + Capture)
+			elseif (configTWH.mapStats[map.get()].mapType[1] == 3) then
+				
+			-- // 4 = Deathmatch (Player vs All)
+			elseif (configTWH.mapStats[map.get()].mapType[1] == 4) then
+
+			end
+			doBroadcastMessage(ret, MESSAGE_STATUS_CONSOLE_ORANGE)
+			return TRUE
+		end
+	]]></globalevent>
+	
+	<event type="login" name="TeamWarLogin" event="script"><![CDATA[
+		domodlib('TeamWar-config')
+		domodlib('TeamWar-lib')
+			
+		function onLogin(cid)
+			
+			-- Register Events
+			registerCreatureEvent(cid, "TeamWarOutfitMapType")
+			registerCreatureEvent(cid, "TeamWarCombatMapType")
+			registerCreatureEvent(cid, "TeamWarNoFollow")
+			registerCreatureEvent(cid, "TeamWarDeathBroadcast")
+			registerCreatureEvent(cid, "TeamWarDeathNoLossItems")
+			registerCreatureEvent(cid, "TeamWarDeathLevelRemove")
+			registerCreatureEvent(cid, "TeamWarSkullSystem")
+			registerCreatureEvent(cid, "TeamWarLook")
+			
+			doPlayerSetTeam.login(cid)
+			
+			-- Logout Protection Time		
+			if ( (configTWH.logoutProtectionTimer.enable) and (getCreatureStorage(cid, configTWH.logoutProtectionTimer.storage) == -1) ) then
+				addEvent(doPlayerSetStorageValue, configTWH.logoutProtectionTimer.timer, cid, configTWH.logoutProtectionTimer.storage, 1)
+			end
+			
+			-- Check Multi-Client
+			if (configTWH.antiMC.enable) then
+				if (getPlayerGroupId(cid) < configTWH.antiMC.group_id) then
+					if (#getPlayersByIp(getPlayerIp(cid)) > configTWH.antiMC.max) then
+						if (not isInArray(configTWH.antiMC.allowedIP, doConvertIntegerToIp(getPlayerIp(cid)))) then
+							-- addEvent(antiMC, 300, {pid = cid, max = configTWH.antiMC.max + 1})
+							doPlayerPopupFYI(cid, configTWH.antiMC.MsgKick)
+							addEvent(playerKickMC, configTWH.antiMC.timeForKick, cid)
+						end
+					end
+				end
+			end
+			return TRUE
+		end
+	]]></event>
+	
+	<event type="logout" name="TeamWarLogout" event="script"><![CDATA[
+		domodlib('TeamWar-config')
+		domodlib('TeamWar-lib')
+		
+		function onLogout(cid)
+			if ((configTWH.logoutProtectionTimer.enable) and (getCreatureName(cid) ~= "Account Manager") and (getCreatureStorage(cid, configTWH.logoutProtectionTimer.storage) == -1)) then
+				doPlayerSendCancel(cid, "You are receiving the initial skills. Wait ".. configTWH.logoutProtectionTimer.timer / 1000 .." seconds to log out.")
+				return false
+			end
+			
+			if getPlayerAccess(cid) < 3 and getCreatureName(cid) ~= "Account Manager" then		
+				-- 1 = Team vs Team (Normal)
+				if (configTWH.mapStats[map.get()].mapType[1] == 1) then
+					--print("[Logout] 1 = Team vs Team (Normal)")
+					teamCount.rem(playerTeam.get(cid), 1)
+					
+				-- 2 = Quest Map (No-PvP?)
+				elseif (configTWH.mapStats[map.get()].mapType[1] == 2) then
+				
+				-- 3 = Capture The Flag (Normal + Capture)
+				elseif (configTWH.mapStats[map.get()].mapType[1] == 3) then
+				
+				-- 4 = Deathmatch (Player vs All)
+				elseif (configTWH.mapStats[map.get()].mapType[1] == 4) then
+					--print("[Logout] 4 = Deathmatch (Player vs All)")
+				end
+				
+				playerTeam.set(cid, 0)
+			end
+			return TRUE
+		end
+	]]></event>
+	
+	<globalevent name="TeamWarStatsInfo" interval="1000" event="script"><![CDATA[
+		domodlib('TeamWar-config')
+		domodlib('TeamWar-lib')
+			
+		function onThink(interval, lastExecution)
+
+			local OnlinePlayers = getPlayersOnline()
+			for _, cid in ipairs(OnlinePlayers) do
+				if isPlayer(cid)then
+					mostraTempo(cid)
+				end
+			end
+			return TRUE
+		end
+	]]></globalevent>
+	
+	<globalevent name="TeamWarMapChange" interval="1000" event="script"><![CDATA[
+		domodlib('TeamWar-config')
+		domodlib('TeamWar-lib')
+		
+		function onThink(interval, lastExecution)
+
+			local lastTime = getStorage(configTWH.mapChange.timerStorage)
+			local now = os.time()
+			local timePassed = now - lastTime
+			local minutes,seconds = getTimeMap(configTWH.mapChange.timer - timePassed)
+
+			if (timePassed >= configTWH.mapChange.timer) then
+				map_change(mapInfo.mapIdNext())
+				doSetStorage(configTWH.mapChange.timerStorage, now)
+			else
+				if (minutes == 0 and seconds == 59) then
+					doBroadcastMessage("Map change in 60 seconds! Next map is ".. mapInfo.mapNameNext())
+				elseif (minutes == 0 and seconds == 30) then
+					doBroadcastMessage("Map change in 30 seconds! Next map is ".. mapInfo.mapNameNext())
+				elseif (minutes == 0 and seconds == 15) then
+					doBroadcastMessage("Map change in 15 seconds! Next map is ".. mapInfo.mapNameNext())
+				end
+			end
+			
+			return TRUE
+		end
+	]]></globalevent>
+	
+	<globalevent name="TeamWarMapChangeOld" interval="1150000" event="script"><![CDATA[
+		domodlib('TeamWar-config')
+		domodlib('TeamWar-lib')
+		-- 1200000 = 20m  - 28000(delay viewre
+		function onThink(interval, lastExecution)
+			addEvent(map_change, 28*1000, mapInfo.mapIdNext())
+			addEvent(doBroadcastMessage, 1*1000,"Map change in 5 seconds!")
+			addEvent(doBroadcastMessage, 2*1000,"Map change in 4 seconds!")
+			addEvent(doBroadcastMessage, 3*1000,"Map change in 3 seconds!")
+			addEvent(doBroadcastMessage, 4*1000,"Map change in 2 seconds!")
+			addEvent(doBroadcastMessage, 5*1000,"Map change in 1 seconds!")
+			return TRUE
+		end
+	]]></globalevent>
+	
+	<event type="death" name="TeamWarDeathNoLossItems" event="script"><![CDATA[
+		domodlib('TeamWar-config')
+		domodlib('TeamWar-lib')
+			
+		function onDeath(cid, corpse, deathList)
+			
+			-- No Loot Drop
+			doCreatureSetDropLoot(cid, false)
+			local killer = deathList[1]
+			
+			-- Check Ip  and add Frag Team
+			if (isPlayer(killer) == TRUE) and (getPlayerIp(cid) ~= getPlayerIp(killer)) then
+				fragsTeam.add(playerTeam.get(killer), 1)
+			end
+		end
+	]]></event>
+	
+	<event type="preparedeath" name="TeamWarDeathLevelRemove" event="script"><![CDATA[
+		domodlib('TeamWar-config')
+		domodlib('TeamWar-lib')
+		
+		function onPrepareDeath(cid, deathList)
+			if (isPlayer(cid) == TRUE) then
+				doPlayerAddExperience(cid, (getExperienceForLevel(configTWH.startPlayer.LevelFree) - getPlayerExperience(cid)))
+			end
+			return TRUE
+		end
+	]]></event>
+	   
+	<globalevent name="TeamWarFragsBalance" interval="120000" event="script"><![CDATA[
+		domodlib('TeamWar-config')
+		domodlib('TeamWar-lib')
+
+		function EquilibrarServ()
+			return map_change(mapInfo.mapIdNext), equilibrar()
+		end		
+
+		function onThink(interval, lastExecution)
+			
+			if (fragsTeam.get(1) - fragsTeam.get(2)) > configTWH.diffFragsToEqui or (fragsTeam.get(2) - fragsTeam.get(1)) > configTWH.diffFragsToEqui then
+				doBroadcastMessage("[TeamWarOT] Unbalanced teams, new teams will be formed and a new map will be chosen in 30 seconds!", MESSAGE_STATUS_WARNING)
+				addEvent(EquilibrarServ, 30 * 1000)
+				addEvent(doBroadcastMessage, 15 * 1000, "[TeamWarOT] Unbalanced teams, new teams will be formed and a new map will be chosen in 15 seconds!", MESSAGE_STATUS_WARNING)
+				addEvent(doBroadcastMessage, 27 * 1000, "[TeamWarOT] Times unbalanced, to keep the game competitive will be re-balanced teams and change map!", MESSAGE_STATUS_WARNING)
+			end
+			return TRUE
+		end
+	]]></globalevent>
+	
+	<event type="outfit" name="TeamWarOutfitMapType" event="script"><![CDATA[
+		domodlib('TeamWar-config')
+		domodlib('TeamWar-lib')
+			
+		function onOutfit(cid, old, current)
+			if isPlayer(cid) then
+				-- 1 = Team vs Team (Normal)
+				if (configTWH.mapStats[map.get()].mapType[1] == 1) then
+					-- print("[Outfit-MapType] 1 = Team vs Team (Normal)")
+					if (getCreatureStorage(cid, configTWH.STORAGE.PLAYER.OUTFIT_Status) == 1) then
+						doCreatureSetStorage(cid, configTWH.STORAGE.PLAYER.OUTFIT_Status, 0)
+						return TRUE
+					else
+						doPlayerSendCancel(cid, "You cannot change your outfit during the event.")
+						return FALSE
+					end
+
+				-- 2 = Quest Map (No-PvP?)
+				elseif (configTWH.mapStats[map.get()].mapType[1] == 2) then
+				
+				-- 3 = Capture The Flag (Normal + Capture)
+				elseif (configTWH.mapStats[map.get()].mapType[1] == 3) then
+				
+				-- 4 = Deathmatch (Player vs All)
+				elseif (configTWH.mapStats[map.get()].mapType[1] == 4) then				
+					-- print("[Outfit-MapType] 4 = Deathmatch (Player vs All)")
+				end	
+			end
+			return TRUE
+		end
+	]]></event>
+		
+	<event type="combat" name="TeamWarCombatMapType" event="script"><![CDATA[
+		domodlib('TeamWar-config')
+		domodlib('TeamWar-lib')
+		
+		function onCombat(cid, target)
+			
+			if cid ~= target and (isPlayer(cid) and isPlayer(target)) then
+				-- 1 = Team vs Team (Normal)
+				if (configTWH.mapStats[map.get()].mapType[1] == 1) then
+					-- print("[MapType] 1 = Team vs Team (Normal)")
+					-- Check (Normal)
+					if (playerTeam.get(cid) == playerTeam.get(target)) then
+						doPlayerSendCancel(cid,"[TeamWar HardCore] You can't attack their team!")
+						return FALSE
+					end
+				-- 2 = Quest Map (No-PvP?)
+				elseif (configTWH.mapStats[map.get()].mapType[1] == 2) then
+				
+				-- 3 = Capture The Flag (Normal + Capture)
+				elseif (configTWH.mapStats[map.get()].mapType[1] == 3) then
+				
+				-- 4 = Deathmatch (Player vs All)
+				elseif (configTWH.mapStats[map.get()].mapType[1] == 4) then
+					-- print("[MapType] 4 = Deathmatch (Player vs All)")
+					return TRUE
+				end
+			end
+			return TRUE
+		end
+	]]></event>
+</mod>

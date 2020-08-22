@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mod name="First Items" version="1.0" author="HeberPcL" contact="heberpcl@gmail.com" enabled="yes">
+	<config name="firstitems_config"><![CDATA[
+		config = {
+			storage = 30003,
+		}
+	]]></config>
+	<event type="login" name="FirstItems" event="script"> <![CDATA[
+		domodlib('firstitems_config')
+ 
+		function onLogin(cid)
+			local config = {
+				groupID = 3,
+				voc_potions = {
+					{ -- SORC
+						{7618}, -- Health Potion
+						{7620}, -- Mana Potion
+						{7589}, -- Strong Mana Potion
+						{7590} -- Great Mana Potion
+					},
+					{ -- DRUID
+						{7618}, -- Health Potion
+						{7620}, -- Mana Potion
+						{7589}, -- Strong Mana Potion
+						{7590} -- Great Mana Potion
+					},
+					{ -- PALADIN
+						{7620}, -- Mana Potion
+						{7589}, -- Strong Mana potion
+						{7618}, -- Health Potion
+						{8472} -- Great Spirit Potion
+					},
+					{ -- KNIGHT
+						{7620}, -- Mana Potion
+						{7618}, -- Health Potion
+						{7588}, -- Strong Health Potion
+						{7591}, -- Great Health Potion
+						{8473} -- Ultimate Health Potion
+					}
+				},
+				voc_runes = {
+					-- Runes
+					-- {2273}, -- Ultimate Healing
+					-- {2268}, -- Sudden Death
+					-- {2313}, -- Explosion
+					-- {2311}, -- HMM
+					-- {2304}, -- Great FireBall
+					-- {2286}, -- Poison Bomb
+					-- {2262}, -- Energy Bomb
+					-- {2305}, -- Fire Bomb
+					-- {2278}, -- Paralyze Rune
+					-- {2261}, -- Destroy Field rune
+					-- {2269}, -- Wild Growth
+					-- {2293} -- Magic Wall
+					
+					{ -- Sorcerer
+						{2273}, -- Ultimate Healing
+						{2293}, -- Magic Wall
+						{2268}, -- Sudden Death
+						{2278} -- Paralyze Rune
+					},
+					{ -- Druid
+						{2273}, -- Ultimate Healing
+						{2293}, -- Magic Wall
+						{2268}, -- Sudden Death
+						{2278} -- Paralyze Rune
+					},
+					{ -- Paladin
+						{2273}, -- Ultimate Healing
+						{2293}, -- Magic Wall
+						{2313} -- Explosion
+					},
+					{ -- Knight
+						{2273}, -- Ultimate Healing
+						{2293}, -- Magic Wall
+						{2313} -- Explosion
+					},
+				},
+				voc_items = {
+					{ -- Sorcerer
+						{2200}, -- Protection Amulet
+						{8921}, -- Wand of Draconia
+						{2663}, -- Mystic turban
+						{8903}, -- spellbook of lost souls 
+						
+						{7730}, -- Blue legs
+						{2656}, -- Blue robe
+						{7708} -- ring
+					},
+					{ -- Druid
+						{2200}, -- Protection Amulet
+						{2185}, -- Necrotic Rod
+						{2663}, -- Mystic turban
+						{8903}, -- spellbook of lost souls 
+						
+						{7730}, -- Blue legs
+						{2656}, -- Blue robe
+						{7708} -- ring
+					},
+					{ -- Paladin
+						{2200}, -- Protection Amulet
+						{2519}, -- Crown Shield
+						{2498}, -- Royal Helmet
+						{7368}, -- Assassin stars
+						{2470}, -- Golden legs
+						
+						{8888}, -- Master archers armor
+						{7708} -- ring
+					},
+					{ -- Knight
+						{2200}, -- Protection Amulet
+						{2519}, -- Crown Shield
+						{2491}, -- Crown Helmet
+						{2376}, -- Sword
+						{2488}, -- Crown Legs
+						
+						{2487}, -- Crown Armor
+						{7708} -- ring
+					}
+				},
+				all_items = {
+					{2195} -- Boots of Haste for ALL
+				},
+				extra_items = {
+					{2789, 100}, -- brown mushrooms
+					{2120}, -- rope
+					{5710}, -- light shovel
+					{2003} -- Grey Backpack
+				},
+				knight_weapons = {
+					{7390}, -- Justice Seeker
+					{7421}, -- Onyx Flail
+					{7433} -- Ravenwing
+				}
+			}
+			if getPlayerGroupId(cid) < config.groupID and getCreatureName(cid) ~= "Account Manager" then
+				if getCreatureStorage(cid, storage) == -1 or ((getAccountIdByName(getPlayerName(cid)) == 10) or (getAccountIdByName(getPlayerName(cid)) == 20) or (getAccountIdByName(getPlayerName(cid)) == 30) or (getAccountIdByName(getPlayerName(cid)) == 40)) then
+					local common = config.voc_items[getPlayerVocation(cid)]
+					if common ~= nil then
+						for _, v in ipairs(common) do
+							doPlayerAddItem(cid, v[1], v[2] or 1)
+						end
+					end
+
+					local all = config.all_items
+					if all ~= nil then
+						for _, v in ipairs(all) do
+							doPlayerAddItem(cid, v[1], v[2] or 1)
+						end
+					end
+
+					local extra = config.extra_items
+					local bp = doPlayerAddItem(cid, 1988, 1)
+					if extra ~= nil then
+						for _, v in ipairs(extra) do
+							doAddContainerItem(bp, v[1], v[2] or 1)
+						end
+					end
+
+					local weapons = config.knight_weapons
+					if weapons ~= nil then
+						for _, w in ipairs(weapons) do
+							if isKnight(cid) then
+								doAddContainerItem(bp, w[1], w[2] or 1)
+							end
+						end
+					end
+
+					local rune = config.voc_runes[getPlayerVocation(cid)]
+					local bagRune = doPlayerAddItem(cid, 10520, 1)
+					if rune ~= nil then
+						for _, v in ipairs(rune) do
+							doAddContainerItem(bagRune, v[1], v[2] or 1)
+						end
+					end
+					
+					local potion = config.voc_potions[getPlayerVocation(cid)]
+					local bagPotion = doPlayerAddItem(cid, 11242, 1)
+					if potion ~= nil then
+						for _, v in ipairs(potion) do
+							doAddContainerItem(bagPotion, v[1], v[2] or 1)
+						end
+					end
+
+					setPlayerStorageValue(cid, storage, 1)
+				end
+			end
+			return true
+		end
+	]]></event>
+</mod>

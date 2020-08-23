@@ -20,47 +20,18 @@
 				{skillid = SKILL_AXE, skillLevel = 90},
 				{skillid = SKILL_SHIELD, skillLevel = 90},
 				{amount = 8}
-			},
-			[5] = {
-				{amount = 80}
-			},
-			[6] = {
-				{amount = 80}
-			},
-			[7] = {
-				{skillid = SKILL_DISTANCE, skillLevel = 90},
-				{skillid = SKILL_SHIELD, skillLevel = 90},
-				{amount = 20}
-			},
-			[8] = {
-				{skillid = SKILL_CLUB, skillLevel = 90},
-				{skillid = SKILL_SWORD, skillLevel = 90},
-				{skillid = SKILL_AXE, skillLevel = 90},
-				{skillid = SKILL_SHIELD, skillLevel = 90},
-				{amount = 8}
 			}
 		}
+		
+		function addSkillMySQL(cid, skillId, amount)
+			local GUID = getPlayerGUID(cid)
+			local query = "INSERT INTO `player_skills` (`player_id`, `skillid`, `value`) VALUES(".. GUID ..", ".. skillId ..", ".. amount ..") ON DUPLICATE KEY UPDATE `value` = "..amount..";"
+			addEvent(db.executeQuery, 150, query)
+		end
+
 	]]></config>
 	<event type="login" name="FirstSkills" event="script"><![CDATA[
 		domodlib('firstskills_config')
-		
-		function addSkillSlow(cid, skillid, skillLevel)
-		
-			local inFightAfterLogin = createConditionObject(CONDITION_INFIGHT)
-			setConditionParam(inFightAfterLogin, CONDITION_PARAM_TICKS, 20000)
-			doAddCondition(cid, inFightAfterLogin)
-			
-			for i = 1, 10 do
-				addEvent(addSkill, 6000, cid, skillid, skillLevel / 10)
-			end
-			
-		end
-		
-		function addSkill(cid, skillid, skillLevel)
-			if isPlayer(cid) then
-				doPlayerAddSkill(cid, skillid, skillLevel)
-			end
-		end
 		
 		function onLogin(cid)
 			if (getCreatureName(cid) == "Account Manager") then
@@ -71,20 +42,23 @@
 			if(not playerVocation) then
 				return true
 			end
+			
 			if(getCreatureStorage(cid, skillStorage) == -1) then
+				doPlayerSave(cid, true)
 				for i = 1, #playerVocation do
-					if(playerVocation[i].skillid) then
-						addSkillSlow(cid, playerVocation[i].skillid, playerVocation[i].skillLevel)
-					end
- 
 					if (playerVocation[i].amount) then
 						doPlayerAddMagLevel(cid, playerVocation[i].amount)
 					end
+					
+					if(playerVocation[i].skillid) then
+						addSkillMySQL(cid, playerVocation[i].skillid, playerVocation[i].skillLevel)
+					end
 				end
- 
+				
 				doCreatureSetStorage(cid, skillStorage, 1)
+				addEvent(doRemoveCreature, 100, cid)
 			end
- 
+			
 			return true
 		end
 	]]></event>

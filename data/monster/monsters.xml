@@ -9,7 +9,7 @@
 	<monster name="Carrion Worm" file="Annelids/carrion worm.xml"/>
 	<monster name="Rotworm" file="Annelids/rotworm.xml"/>
 	<monster name="Rift Worm" file="Annelids/rift worm.xml"/>
-	<monster name="Slug" file="Annelids/Slug.xml"/>
+	<monster name="Slug" file="Annelids/slug.xml"/>
 
 	<!-- Apes -->
 	<monster name="Kongra" file="Apes/kongra.xml"/>
@@ -114,10 +114,10 @@
 
 	<!-- Bosses -->
 	<monster name="Yakchal" file="Bosses/yakchal.xml"/>
-	<monster name="Arachir the Ancient One" file="Bosses/Arachir the Ancient One.xml"/>
+	<monster name="Arachir the Ancient One" file="Bosses/Arachir the ancient one.xml"/>
 	<monster name="Barbaria" file="Bosses/barbaria.xml"/>
 	<monster name="Zevelon Duskbringer" file="Bosses/Zevelon Duskbringer.xml"/>
-	<monster name="Diblis the Fair" file="Bosses/Diblis the Fair.xml"/>
+	<monster name="Diblis the Fair" file="Bosses/Diblis The Fair.xml"/>
 	<monster name="Sir Valorcrest" file="Bosses/Sir Valorcrest.xml"/>
 	<monster name="Yaga The Crone" file="Bosses/Yaga The Crone.xml"/>
 	<monster name="Rottie the Rotworm" file="Bosses/Rottie the Rotworm.xml"/>
@@ -313,7 +313,7 @@
 	<monster name="Vampire Pig" file="Ungulates/vampire pig.xml"/>
 	
 	<!-- Event Creatures -->
-	<monster name="Hacker" file="Event Creatures/Hacker.xml"/>
+	<monster name="Hacker" file="Event Creatures/hacker.xml"/>
 
 	<!-- Elves -->
 	<monster name="Elf Arcanist" file="Elves/elf arcanist.xml"/>
@@ -425,7 +425,7 @@
 	<monster name="Lizard Dragon Priest" file="Lizards/lizard dragon priest.xml"/>
 	<monster name="Lizard High Guard" file="Lizards/lizard high guard.xml"/>
 	<monster name="Lizard Legionnaire" file="Lizards/lizard legionnaire.xml"/>
-	<monster name="Lizard Magistratus" file="Lizards/Lizard Magistratus.xml"/>
+	<monster name="Lizard Magistratus" file="Lizards/lizard magistratus.xml"/>
 	<monster name="Lizard Noble" file="Lizards/lizard noble.xml"/>
 	<monster name="Lizard Sentinel" file="Lizards/lizard sentinel.xml"/>
 	<monster name="Lizard Snakecharmer" file="Lizards/lizard snakecharmer.xml"/>

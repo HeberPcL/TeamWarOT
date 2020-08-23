@@ -74,12 +74,12 @@
 				[1] = {
 					idType = 1,
 					nameType = "Team vs Team",
-					descricao = "           { Team vs Team } \n\n O objetivo é matar \n jogadores de outros times."
+					descricao = "           { Team vs Team } \n\n O objetivo ï¿½ matar \n jogadores de outros times."
 				},
 				[4] = {
 					idType = 4,
 					nameType = "Deathmatch",
-					descricao = "           { Deathmatch } \n\n O objetivo é matar \n o maior numero de jogadores \n      (TODOS SÃO INIMIGO!)."
+					descricao = "           { Deathmatch } \n\n O objetivo ï¿½ matar \n o maior numero de jogadores \n      (TODOS Sï¿½O INIMIGO!)."
 				},
 			},
 			
@@ -125,7 +125,7 @@
 			},
 			mensagens = {
 				[0] = "Fique por dentro de tudo que acontece no servidor e participe do nosso Forum. Visite: http://TeamWarOT.com",
-				[1] = "A Equipe não se responsabiliza por perda de Items/Roubos/Accounts Hackeds. Mantenha sua account segura, nunca use Account = Senha!",
+				[1] = "A Equipe nï¿½o se responsabiliza por perda de Items/Roubos/Accounts Hackeds. Mantenha sua account segura, nunca use Account = Senha!",
 				[2] = "Comandos disponiveis no Servidor: !frags, !top, !rank, !online, !map, !maps, !nextMap.",
 				[3] = "Crie Agora sua Account! Visite: http://TeamWarOT.com/",
 				[4] = "Visite nosso TeamSpeak 3, otimo bate-papo de voz com toda Equipe e Players! Cliente antigo 3.1.8 IP: TS.TeamSpeakClub.com:9987  Download: https://mega.nz/#!uMgzBIzY!fd1JoRq0tx41gfP1-d2f718XI19Szx_SJa8xf_3M4is "
@@ -295,7 +295,6 @@
 				if (getPlayerAccess(cid) <= 3) and (getCreatureName(cid) ~= "Account Manager") then
 					-- Player Mensagem
 					doPlayerSendTextMessage(cid, MESSAGE_STATUS_CONSOLE_ORANGE ,"[ TeamWarOT HardCore ]  Site: http://TeamWarOT.com/  -  IP: TeamWarOT.com")
-					doPlayerSendTextMessage(cid, MESSAGE_STATUS_CONSOLE_ORANGE ,"   Accounts      :   1/1 - Sorcerer  |  2/2 - Druid  |  3/3 Paladin  |  4/4 Knight ")
 					doPlayerSendTextMessage(cid, MESSAGE_STATUS_CONSOLE_ORANGE ,"   Commands    :   !commands, !frags, !top, !online, !map, !maps")
 					doPlayerSendTextMessage(cid, MESSAGE_STATUS_CONSOLE_ORANGE ,"    Players        :   Team Red   [".. teamCount.get(1) .."]   vs   [".. teamCount.get(2) .."]   Team Green")
 					doPlayerSendTextMessage(cid, MESSAGE_STATUS_CONSOLE_ORANGE ,"  Team Frags   :   Team Red   [".. fragsTeam.get(1) .."]   vs   [".. fragsTeam.get(2) .."]   Team Green")
@@ -376,7 +375,7 @@
 
 
 					if isInArray(configTWH.defaultCharAccoutID, getAccountIdByName(getPlayerName(cid))) then
-						doPlayerPopupFYI(cid, "                         Sample Accounts \n \n - Português \n Atenção está é uma account exemplo, \npor favor Crie sua Account. \n\n - Inglês \n Please note this is such an account, \n please Create Your Account. \n\n - Espanhol \n Tenga en cuenta que es como una cuenta,\n crear una cuenta. \n \n Site:  http://TeamWarOT.com/ \n")
+						doPlayerPopupFYI(cid, "                         Sample Accounts \n \n - Portuguï¿½s \n Atenï¿½ï¿½o estï¿½ ï¿½ uma account exemplo, \npor favor Crie sua Account. \n\n - Inglï¿½s \n Please note this is such an account, \n please Create Your Account. \n\n - Espanhol \n Tenga en cuenta que es como una cuenta,\n crear una cuenta. \n \n Site:  http://TeamWarOT.com/ \n")
 					else
 						doPlayerPopupFYI(cid, "            TeamWarOT HardCore Enforced\n                  http://TeamWarOT.com/ \n \n  Commands:\n       !top - Show best killers today!\n       !map - Show map information!\n       !maps - Show map list!\n       !frags  -  Show statistics of war!\n       !online - Show information of team's!\n      \nby God Hard")
 					end

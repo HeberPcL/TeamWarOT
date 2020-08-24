@@ -1209,21 +1209,6 @@
 		end
 	]]></globalevent>
 	
-	<globalevent name="TeamWarMapChangeOld" interval="1150000" event="script"><![CDATA[
-		domodlib('TeamWar-config')
-		domodlib('TeamWar-lib')
-		-- 1200000 = 20m  - 28000(delay viewre
-		function onThink(interval, lastExecution)
-			addEvent(map_change, 28*1000, mapInfo.mapIdNext())
-			addEvent(doBroadcastMessage, 1*1000,"Map change in 5 seconds!")
-			addEvent(doBroadcastMessage, 2*1000,"Map change in 4 seconds!")
-			addEvent(doBroadcastMessage, 3*1000,"Map change in 3 seconds!")
-			addEvent(doBroadcastMessage, 4*1000,"Map change in 2 seconds!")
-			addEvent(doBroadcastMessage, 5*1000,"Map change in 1 seconds!")
-			return TRUE
-		end
-	]]></globalevent>
-	
 	<event type="death" name="TeamWarDeathNoLossItems" event="script"><![CDATA[
 		domodlib('TeamWar-config')
 		domodlib('TeamWar-lib')

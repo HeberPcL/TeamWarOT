@@ -308,6 +308,7 @@
 						
 						-- Set Team Small
 						local team = getSmallestTeam()
+						print("doPlayerSetTeam  |  configTWH.STORAGE.GLOBAL.TEAMS[team]: ".. configTWH.STORAGE.GLOBAL.TEAMS[team])
 						playerTeam.set(cid, configTWH.STORAGE.GLOBAL.TEAMS[team])
 						
 						-- Set Team Color Outfits
@@ -583,13 +584,13 @@
 				end
 				if(getPlayerFlagValue(cid, PLAYERCUSTOMFLAG_CANSEECREATUREDETAILS)) then
 					message = message .. "\nHealth: [" .. getCreatureHealth(cid) .. " / " .. getCreatureMaxHealth(cid) .. "], Mana: [" .. getCreatureMana(cid) .. " / " .. getCreatureMaxMana(cid) .. "]."
-					message = message .. "\nIP: " .. doConvertIntegerToIp(getPlayerIp(cid)) .. ", Client: " .. getClientVersion(cid) .. "."
+					message = message .. "\nIP: " .. doConvertIntegerToIp(getPlayerIp(cid)) .. "."
 				end
 				if(getPlayerFlagValue(cid, PLAYERCUSTOMFLAG_CANSEEPOSITION)) then
 					message = message .. "\nPosition: [X: " .. position.x .. "] [Y: " .. position.y .. "] [Z: " .. position.z .. "]."
 				end
 				doPlayerSetSpecialDescription(cid,' Frags: '..frags.get(cid)..'  and  Frags Online: '..fragsOnline.get(cid))
-				doPlayerSendTextMessage(cid, MESSAGE_INFO_DESCR, message.. " Frags: "..frags.get(cid)..",  Frags Online: "..fragsOnline.get(cid))  
+				doPlayerSendTextMessage(cid, MESSAGE_INFO_DESCR, message.. " Frags: "..frags.get(cid)..",  Frags Online: "..fragsOnline.get(cid))
 				return false
 			end
 			return true

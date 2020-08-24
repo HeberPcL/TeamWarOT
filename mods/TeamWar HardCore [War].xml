@@ -884,7 +884,7 @@
 				if (configTWH.mapStats[map.get()].mapType[1] == 1) then
 					doPlayerSendTextMessage(cid, MESSAGE_STATUS_CONSOLE_BLUE ,"Team Red   [".. teamCount.get(1) .."]   vs   [".. teamCount.get(2) .."]   Team Green")
 				end
-				doPlayerSendTextMessage(cid, MESSAGE_STATUS_CONSOLE_BLUE ,"Players Online: "..#getPlayersOnline().."  inWar: "..#getPlayersOnline()-teamCount.get(3))
+				doPlayerSendTextMessage(cid, MESSAGE_STATUS_CONSOLE_BLUE ,"Players Online: "..#getPlayersOnline())
 				return TRUE
 			end
 			
